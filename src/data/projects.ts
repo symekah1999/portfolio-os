@@ -130,7 +130,7 @@ export const projects: Project[] = [
       { src: "/projects/kdhs/confusion_matrix.png", caption: "Confusion matrix" },
     ],
     honest: [
-      "Model metrics are deliberately not quoted here yet: the README headline matches the untuned LightGBM, and the notebook's tuned run reports near-perfect results on the 'Modern' class that need a leakage check first.",
+      "Model metrics are deliberately not quoted: I found a target-leakage bug in my own notebook (a 0/1 copy of the target, uses_modern, was left in the feature matrix), so the tuned scores it printed are invalid. A fix is in a pull request; the numbers get published after a clean re-run.",
       "The free Render tier sleeps, so the live API can take a minute to wake.",
     ],
   },
