@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { projects, byId } from "@/data/projects";
 import { useOpenApp } from "@/lib/useOpenApp";
+import { useOS } from "@/lib/store";
 
 type Line = { kind: "in" | "out"; text: string };
 const HELP = [
@@ -12,16 +13,19 @@ const HELP = [
   "  cat <id>        summary of a project",
   "  open <id>       open a project window (or: about, contact, settings)",
   "  contact         where to find me",
+  "  sysinfo         system readout",
+  "  theme <name>    cyan | amber | matrix | magenta | red",
   "  clear           clear the screen",
 ];
 
 export default function TerminalApp() {
   const open = useOpenApp();
-  const [lines, setLines] = useState<Line[]>([{ kind: "out", text: "Portfolio OS shell. Type 'help'." }]);
+  const [lines, setLines] = useState<Line[]>([{ kind: "out", text: "PORTFOLIO-OS shell v1.0 — type 'help' for commands." }]);
   const [input, setInput] = useState("");
-  const end = useRef<HTMLDivElement>(null);
+  const box = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    end.current?.scrollIntoView();
+    // Scroll only this panel; scrollIntoView() would also scroll the page and shift the whole desktop.
+    if (box.current) box.current.scrollTop = box.current.scrollHeight;
   }, [lines]);
 
   const run = (raw: string) => {
@@ -47,6 +51,13 @@ export default function TerminalApp() {
         break;
       }
       case "contact": out.push("GitHub:   github.com/symekah1999", "LinkedIn: linkedin.com/in/shadrack-symekah9791561a2"); break;
+      case "sysinfo": out.push("OS        portfolio-os 1.0", `MODULES   ${projects.length} (products ${projects.filter((p) => p.category === "products").length}, data science ${projects.filter((p) => p.category === "datascience").length})`, "STACK     Next.js · TypeScript · Tailwind · Zustand · Framer Motion", "OPERATOR  Shadrack Symekah"); break;
+      case "theme": {
+        const map: Record<string, string> = { cyan: "#00e5ff", amber: "#ffb000", matrix: "#39ff88", magenta: "#ff3df2", red: "#ff4d4d" };
+        if (map[arg]) { useOS.getState().set({ accent: map[arg] }); out.push(`accent set to ${arg}`); }
+        else out.push("theme: choose cyan, amber, matrix, magenta or red");
+        break;
+      }
       case "clear": setLines([]); return;
       default: out.push(`${cmd}: command not found. Type 'help'.`);
     }
@@ -54,18 +65,17 @@ export default function TerminalApp() {
   };
 
   return (
-    <div className="h-full p-4 font-mono text-[13px] bg-black/60" onClick={() => document.getElementById("term-input")?.focus()}>
+    <div ref={box} className="h-full overflow-auto scroll-thin p-4 font-mono text-[13px] bg-black/70" onClick={() => document.getElementById("term-input")?.focus()}>
       {lines.map((l, i) => (
         <div key={i} className="whitespace-pre-wrap" style={{ color: l.kind === "in" ? "var(--text)" : "var(--muted)" }}>
-          {l.kind === "in" ? <><span style={{ color: "var(--accent)" }}>visitor@portfolio</span>:~$ {l.text}</> : l.text}
+          {l.kind === "in" ? <><span style={{ color: "var(--accent)" }}>operator@portfolio-os</span>:~$ {l.text}</> : l.text}
         </div>
       ))}
       <form onSubmit={(e) => { e.preventDefault(); run(input); setInput(""); }} className="flex">
-        <span style={{ color: "var(--accent)" }}>visitor@portfolio</span><span>:~$&nbsp;</span>
+        <span style={{ color: "var(--accent)" }}>operator@portfolio-os</span><span>:~$&nbsp;</span>
         <input id="term-input" autoFocus value={input} onChange={(e) => setInput(e.target.value)} spellCheck={false}
           autoCapitalize="off" autoComplete="off" className="flex-1 bg-transparent outline-none" />
       </form>
-      <div ref={end} />
     </div>
   );
 }

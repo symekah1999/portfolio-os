@@ -8,7 +8,7 @@ export type Win = {
   z: number; minimized: boolean; maximized: boolean;
 };
 
-export type Settings = { accent: string; wallpaper: "aurora" | "midnight" | "dusk" };
+export type Settings = { accent: string; wallpaper: "grid" | "void" | "ember"; fx: boolean };
 
 type OS = {
   windows: Win[];
@@ -26,7 +26,7 @@ type OS = {
 export const useOS = create<OS>((set, get) => ({
   windows: [],
   topZ: 10,
-  settings: { accent: "#7c5cff", wallpaper: "aurora" },
+  settings: { accent: "#00e5ff", wallpaper: "grid", fx: true },
   open: (id, title, size = { w: 820, h: 560 }) => {
     const { windows, topZ } = get();
     const existing = windows.find((w) => w.id === id);

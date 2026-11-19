@@ -1,5 +1,7 @@
 "use client";
 import { GraduationCap, Briefcase, Building2, Award } from "lucide-react";
+import { motion } from "framer-motion";
+import Scramble from "@/components/Scramble";
 
 export default function AboutApp() {
   const rows = [
@@ -11,9 +13,9 @@ export default function AboutApp() {
   return (
     <div className="p-6 max-w-2xl">
       <div className="flex items-center gap-4 mb-5">
-        <div className="w-16 h-16 rounded-2xl grid place-items-center text-2xl font-bold" style={{ background: "var(--accent)" }}>SS</div>
+        <div className="w-16 h-16 grid place-items-center text-2xl font-bold mono relative" style={{ background: "var(--accent)", color: "var(--on-accent)", borderRadius: 4, boxShadow: "0 0 24px var(--line-strong)" }}>SS</div>
         <div>
-          <h1 className="text-2xl font-semibold">Shadrack Symekah</h1>
+          <h1 className="text-2xl font-semibold uppercase glitch"><Scramble text="Shadrack Symekah" /></h1>
           <p style={{ color: "var(--muted)" }}>Data scientist who ships full-stack products · Nairobi, Kenya</p>
         </div>
       </div>
@@ -22,11 +24,11 @@ export default function AboutApp() {
         Open <b>Products</b> for the apps I run in real life, and <b>Data Science</b> for modelling projects with their results, including the limitations.
       </p>
       <div className="grid gap-3">
-        {rows.map(({ icon: I, h, t }) => (
-          <div key={h} className="flex gap-3 p-3 rounded-xl" style={{ background: "rgba(255,255,255,.04)", border: "1px solid var(--line)" }}>
+        {rows.map(({ icon: I, h, t }, i) => (
+          <motion.div key={h} className="flex gap-3 p-3 panel" initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 + i * 0.1 }}>
             <I size={18} style={{ color: "var(--accent)" }} className="mt-0.5 shrink-0" />
-            <div><div className="font-medium text-sm">{h}</div><div className="text-sm" style={{ color: "var(--muted)" }}>{t}</div></div>
-          </div>
+            <div><div className="font-medium text-sm mono">{h}</div><div className="text-sm" style={{ color: "var(--muted)" }}>{t}</div></div>
+          </motion.div>
         ))}
       </div>
       <p className="mt-5 text-sm" style={{ color: "var(--muted)" }}>
