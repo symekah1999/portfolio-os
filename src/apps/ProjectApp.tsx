@@ -46,7 +46,7 @@ export default function ProjectApp({ id }: { id: string }) {
               <button key={im.src} onClick={() => setZoom(im.src)} className="text-left rounded-xl overflow-hidden"
                 style={{ background: "rgba(255,255,255,.05)", border: "1px solid var(--line)" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={im.src} alt={im.caption} className="w-full h-44 object-contain bg-white/95" loading="lazy" />
+                <img src={im.src} alt={im.caption} className="w-full h-44 object-contain bg-black/40" loading="lazy" />
                 <div className="px-3 py-2 text-xs" style={{ color: "var(--muted)" }}>{im.caption}</div>
               </button>
             ))}
@@ -67,7 +67,7 @@ export default function ProjectApp({ id }: { id: string }) {
         <div className="fixed inset-0 z-[9999] bg-black/80 grid place-items-center p-6" onClick={() => setZoom(null)}>
           <button className="absolute top-4 right-4 btn" aria-label="Close"><X size={16} /></button>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={zoom} alt="" className="max-w-full max-h-full bg-white rounded-lg" />
+          <img src={zoom} alt="" className="max-w-full max-h-full rounded-lg" />
         </div>
       )}
     </div>

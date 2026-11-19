@@ -37,6 +37,13 @@ export const projects: Project[] = [
       { label: "Live app", href: "https://menetekel-renttrack.vercel.app" },
       { label: "Source", href: `${GH}/menetekel-renttrack` },
     ],
+    images: [
+      { src: "/projects/renttrack/dashboard.png", caption: "Dashboard: the month's collection and the building, unit by unit" },
+      { src: "/projects/renttrack/login.png", caption: "Members portal sign-in" },
+    ],
+    honest: [
+      "Screenshots show the dashboard and sign-in only. The tenant, payment and settings pages are left out because they hold real tenants' names and phone numbers.",
+    ],
   },
   {
     id: "growth-os",
@@ -56,7 +63,16 @@ export const projects: Project[] = [
       { label: "Live app (login required)", href: "https://growth-app-ruddy-two.vercel.app" },
       { label: "Source", href: `${GH}/Growth-App` },
     ],
-    honest: ["Personal app behind a login, so there is no public demo yet. A seeded demo mode is the next step."],
+    images: [
+      { src: "/projects/growth-os/dashboard.png", caption: "Dashboard: life score, jump-to grid, great life / system / verse / quote of the day" },
+      { src: "/projects/growth-os/life-systems.png", caption: "Life Systems: 75 systems from Stoics, scripture and high performers" },
+      { src: "/projects/growth-os/quick-capture.png", caption: "Quick capture: works offline and syncs later" },
+      { src: "/projects/growth-os/search.png", caption: "Search across journal, goals, lessons, quotes, Bible and libraries" },
+    ],
+    honest: [
+      "It is a personal app behind a login, so the screenshots cover only the pages without private data. Journal, recovery, goals, finances and assistant chats are deliberately not shown.",
+      "A seeded demo mode would let visitors try it; that is the next step.",
+    ],
   },
   {
     id: "fitness-os",
