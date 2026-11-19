@@ -31,3 +31,13 @@ Phones get a simplified layout: each window opens full-screen above the dock.
 ## Content rules
 
 Numbers shown for a project come from its notebook outputs, not README summaries. Where a README and a notebook disagree, the notebook wins and the project's "Honest notes" says so.
+
+## Deploy (Vercel)
+
+1. Go to vercel.com/new and import `symekah1999/portfolio-os`.
+2. Framework preset: Next.js (auto-detected). No environment variables needed.
+3. Click Deploy. Every push to `main` redeploys.
+
+## Demos
+
+`Try interactive demo` on the Growth OS and RentTrack windows (or `demo growth-os` / `demo renttrack` in the terminal) opens a sandbox with synthetic data only.

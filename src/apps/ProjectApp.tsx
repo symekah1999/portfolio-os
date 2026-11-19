@@ -3,12 +3,14 @@ import { useState } from "react";
 import { ExternalLink, AlertTriangle, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { byId } from "@/data/projects";
+import { useOpenApp } from "@/lib/useOpenApp";
 import Scramble from "@/components/Scramble";
 
 const up = (i: number) => ({ initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 }, transition: { delay: 0.1 + i * 0.07, duration: 0.35 } });
 
 export default function ProjectApp({ id }: { id: string }) {
   const p = byId(id);
+  const open = useOpenApp();
   const [zoom, setZoom] = useState<string | null>(null);
   if (!p) return <div className="p-6">Project not found.</div>;
   return (
@@ -35,6 +37,9 @@ export default function ProjectApp({ id }: { id: string }) {
 
       <div className="flex flex-wrap gap-1.5 mb-4">{p.stack.map((s) => <span key={s} className="chip">{s}</span>)}</div>
       <div className="flex flex-wrap gap-2 mb-6">
+        {(p.id === "growth-os" || p.id === "renttrack") && (
+          <button className="btn btn-accent" onClick={() => open(`demo:${p.id}`)}>Try interactive demo</button>
+        )}
         {p.links.map((l, i) => (
           <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className={`btn ${i === 0 ? "btn-accent" : ""}`}>
             {l.label} <ExternalLink size={13} />

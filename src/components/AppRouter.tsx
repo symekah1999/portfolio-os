@@ -4,6 +4,7 @@ import FolderApp from "@/apps/FolderApp";
 import ProjectApp from "@/apps/ProjectApp";
 import TerminalApp from "@/apps/TerminalApp";
 import ContactApp from "@/apps/ContactApp";
+import DemoApp from "@/apps/DemoApp";
 import SettingsApp from "@/apps/SettingsApp";
 
 export default function AppRouter({ id }: { id: string }) {
@@ -13,6 +14,7 @@ export default function AppRouter({ id }: { id: string }) {
   if (id === "settings") return <SettingsApp />;
   if (id === "folder:products") return <FolderApp category="products" />;
   if (id === "folder:datascience") return <FolderApp category="datascience" />;
+  if (id.startsWith("demo:")) return <DemoApp id={id.slice(5)} />;
   if (id.startsWith("project:")) return <ProjectApp id={id.slice(8)} />;
   return null;
 }

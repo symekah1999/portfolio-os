@@ -11,6 +11,7 @@ const HELP = [
   "  whoami          who I am",
   "  ls              list projects",
   "  cat <id>        summary of a project",
+  "  demo <id>       launch a sandbox demo: growth-os | renttrack",
   "  open <id>       open a project window (or: about, contact, settings)",
   "  contact         where to find me",
   "  sysinfo         system readout",
@@ -48,6 +49,11 @@ export default function TerminalApp() {
         if (p) { open(`project:${p.id}`); out.push(`opening ${p.name}…`); }
         else if (["about", "contact", "settings"].includes(arg)) { open(arg); out.push(`opening ${arg}…`); }
         else out.push(`open: ${arg || "(missing id)"}: not found. Try 'ls'.`);
+        break;
+      }
+      case "demo": {
+        if (["growth-os", "renttrack"].includes(arg)) { open(`demo:${arg}`); out.push(`launching ${arg} demo (synthetic data)…`); }
+        else out.push("usage: demo growth-os | demo renttrack");
         break;
       }
       case "contact": out.push("GitHub:   github.com/symekah1999", "LinkedIn: linkedin.com/in/shadrack-symekah9791561a2"); break;

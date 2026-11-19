@@ -9,6 +9,10 @@ export function resolveApp(id: string): AppDef {
   if (id === "settings") return { id, title: "Settings", w: 520, h: 420 };
   if (id === "folder:products") return { id, title: "Products", w: 760, h: 480 };
   if (id === "folder:datascience") return { id, title: "Data Science", w: 760, h: 480 };
+  if (id.startsWith("demo:")) {
+    const p = projects.find((x) => x.id === id.slice(5));
+    return { id, title: `${p?.name ?? "App"} · demo`, w: 760, h: 560 };
+  }
   if (id.startsWith("project:")) {
     const p = projects.find((x) => x.id === id.slice(8));
     return { id, title: p?.name ?? "Project", w: 900, h: 640 };
